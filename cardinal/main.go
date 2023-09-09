@@ -40,6 +40,7 @@ func main() {
 	err = world.RegisterTransactions(
 		tx.CreatePlayer,
 		tx.AttackPlayer,
+		tx.ForwardTx,
 	)
 	if err != nil {
 		log.Fatal().Err(err)
@@ -63,6 +64,7 @@ func main() {
 	world.AddSystem(system.AttackSystem)
 	world.AddSystem(system.RegenSystem)
 	world.AddSystem(system.PlayerSpawnerSystem)
+	world.AddSystem(system.ForwardTxSystem)
 
 	// Load game state
 	err = world.LoadGameState()
