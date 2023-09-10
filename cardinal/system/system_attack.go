@@ -12,7 +12,8 @@ import (
 
 // AttackSystem is a system that inflict damage to player's HP based on `AttackPlayer` transactions.
 // This provides a simple example of how to create a system that modifies the component of an entity.
-func AttackSystem(world *ecs.World, tq *ecs.TransactionQueue, _ *ecs.Logger) error {
+func AttackSystem(world *ecs.World, tq *ecs.TransactionQueue, ecs_logger *ecs.Logger) error {
+	world.Logger.Debug().Msg("Attack system is running")
 	// Get all the transactions that are of type CreatePlayer from the tx queue
 	attackTxs := tx.AttackPlayer.In(tq)
 
@@ -34,6 +35,8 @@ func AttackSystem(world *ecs.World, tq *ecs.TransactionQueue, _ *ecs.Logger) err
 	// In the future, you will be able to add error receipts to transaction receipts.
 	for _, attack := range attackTxs {
 		target := attack.Value.TargetNickname
+		world.Logger.Debug().Msg("Trying to attack")
+
 		targetPlayerID, ok := playerTagToID[target]
 		// If the target player doesn't exist, skip this transaction
 		if !ok {
@@ -57,6 +60,7 @@ func AttackSystem(world *ecs.World, tq *ecs.TransactionQueue, _ *ecs.Logger) err
 				fmt.Errorf("failed to set health on %q: %w", target, err))
 			continue
 		}
+
 	}
 
 	return nil

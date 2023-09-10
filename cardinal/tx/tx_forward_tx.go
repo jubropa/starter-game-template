@@ -5,10 +5,11 @@ import (
 )
 
 type ForwardTxMsg struct {
-	Endpoint string `json:"endpoint"`
-	Port     string `json:"port"`
-	TxType   string `json:"tx_type"`
-	TxValue  string `json:"tx_value"`
+	Endpoint       string `json:"endpoint"`
+	Port           string `json:"port"`
+	TxTypeStruct   any    `json:"tx_type"`
+	TxTypeEndpoint string `json:"tx_type_endpoint"`
+	TxValue        string `json:"tx_value"`
 }
 
 type ForwardTxMsgReply struct {
